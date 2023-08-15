@@ -1,0 +1,76 @@
+/* https://dribbble.com/shots/1824088-GIF-for-the-Weather-App */
+
+ :root {
+  --green: #8BA892;
+  --yellow: #E3BB88;
+  --orange: #DB9864;
+  --red: #B1695A;
+  --dark-red: #644749;
+ }
+
+ .yellow {
+  background-color: var(--yellow);
+ }
+ 
+ .orange {
+  background-color: var(--orange);
+ }
+ 
+ .red {
+  background-color: var(--red);
+ }
+ 
+ .dark-red {
+  background-color: var(--dark-red);
+ }
+ 
+ * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+ }
+
+ li {
+  list-style: none;
+ }
+
+ body {
+  width: 100vw;
+  height: 100vh;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+ }
+
+ .app {
+  width: 100%;
+  height: 100%;
+ }
+
+ .header {
+  background-color: #8BA892;
+  height: 10vh;
+ }
+
+ .reports-list {
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+ }
+
+ .reports-list li {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100%;
+ }
+
+ .weather-report h2 {
+  font-size: 1.25rem;
+  opacity: 0.8;
+  margin-bottom: 0.25rem;
+ }
+
+ .weather-report .temp {
+  font-size: 3rem;
+ }
