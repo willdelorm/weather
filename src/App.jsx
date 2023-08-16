@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Forecast from "./components/Forecast";
 
-const API_KEY = "30ea1430f9530845f4ff44a7d1420907";
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 const FORECAST_DATA = {
   dt: 1692144000,
