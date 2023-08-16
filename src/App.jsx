@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Forecast from "./components/Forecast";
+import Form from "./components/Form";
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
@@ -89,12 +90,12 @@ function App() {
 
   return (
     <div className="app">
-      <form className="header" onSubmit={handleSubmit}>
-        <i className="fa-solid fa-location-dot" />
-        <input type="text" value={searchInput} onChange={handleChange} />
-        <button type="submit">Submit</button>
-      </form>
-      <ul className="reports-list">
+      <Form
+        searchInput={searchInput}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+      />
+      <ul className="forecasts-list">
         {/* <Forecast data={FORECAST_DATA} /> */}
         {forecasts.length
           ? forecasts.map((data) => <Forecast key={data.dt} data={data} />)
