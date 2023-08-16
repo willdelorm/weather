@@ -1,6 +1,44 @@
 import { useState } from "react";
+import Forecast from "./components/Forecast";
 
 const API_KEY = "30ea1430f9530845f4ff44a7d1420907";
+
+const FORECAST_DATA = {
+  dt: 1692144000,
+  main: {
+    temp: 101.59,
+    feels_like: 103.21,
+    temp_min: 101.59,
+    temp_max: 102.38,
+    pressure: 1012,
+    sea_level: 1012,
+    grnd_level: 998,
+    humidity: 27,
+    temp_kf: -0.44,
+  },
+  weather: [
+    {
+      id: 803,
+      main: "Clouds",
+      description: "broken clouds",
+      icon: "04d",
+    },
+  ],
+  clouds: {
+    all: 75,
+  },
+  wind: {
+    speed: 10.42,
+    deg: 278,
+    gust: 7.72,
+  },
+  visibility: 10000,
+  pop: 0.02,
+  sys: {
+    pod: "d",
+  },
+  dt_txt: "2023-08-16 00:00:00",
+};
 
 // https://openweathermap.org/api/geocoding-api
 const getCoordinatesFromCityName = (city) => {
@@ -25,21 +63,7 @@ const getForecast = (lat, lon) => {
     });
 };
 
-// 2023-08-15 21:00:00
-const utcToLocal = (dateStr) => {
-  const regex = /[0-9]+/g;
-  const utcProps = dateStr.match(regex);
-  const localeDateTime = new Date(Date.UTC(...utcProps));
-
-  return localeDateTime;
-};
-
-const BG_COLORS = [
-  "yellow",
-  "orange",
-  "red",
-  "dark-red",
-]
+const BG_COLORS = ["yellow", "orange", "red", "dark-red"];
 
 function App() {
   const [searchInput, setSearchInput] = useState("");
@@ -63,8 +87,6 @@ function App() {
     }
   };
 
-
-
   return (
     <div className="app">
       <form className="header" onSubmit={handleSubmit}>
@@ -73,25 +95,10 @@ function App() {
         <button type="submit">Submit</button>
       </form>
       <ul className="reports-list">
-        {forecasts.map((report, index) => {
-          const dateTime = utcToLocal(report.dt_txt).toLocaleTimeString();
-
-          return (
-            <li key={index} className={`${BG_COLORS[index]}`}>
-              <div className="conditions-image"></div>
-              <div className="weather-report">
-                <h2>{dateTime}</h2>
-                <p className="temp">{report.main.temp_max}</p>
-                <p className="condition"> {report.weather[0].main}</p>
-                <p className="details">
-                  Wind: {report.wind.speed}
-                  <br />
-                  Humidity: {report.main.humidity}
-                </p>
-              </div>
-            </li>
-          );
-        })}
+        {/* <Forecast data={FORECAST_DATA} /> */}
+        {forecasts.length
+          ? forecasts.map((data) => <Forecast key={data.dt} data={data} />)
+          : null}
       </ul>
     </div>
   );
