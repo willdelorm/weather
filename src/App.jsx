@@ -4,42 +4,152 @@ import Form from "./components/Form";
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
-const FORECAST_DATA = {
-  dt: 1692144000,
-  main: {
-    temp: 101.59,
-    feels_like: 103.21,
-    temp_min: 101.59,
-    temp_max: 102.38,
-    pressure: 1012,
-    sea_level: 1012,
-    grnd_level: 998,
-    humidity: 27,
-    temp_kf: -0.44,
-  },
-  weather: [
-    {
-      id: 803,
-      main: "Clouds",
-      description: "broken clouds",
-      icon: "04d",
+const FORECAST_DATA = [
+  {
+    dt: 1692144000,
+    main: {
+      temp: 101.59,
+      feels_like: 103.21,
+      temp_min: 101.59,
+      temp_max: 102.38,
+      pressure: 1012,
+      sea_level: 1012,
+      grnd_level: 998,
+      humidity: 27,
+      temp_kf: -0.44,
     },
-  ],
-  clouds: {
-    all: 75,
+    weather: [
+      {
+        id: 803,
+        main: "Clouds",
+        description: "broken clouds",
+        icon: "04d",
+      },
+    ],
+    clouds: {
+      all: 75,
+    },
+    wind: {
+      speed: 10.42,
+      deg: 278,
+      gust: 7.72,
+    },
+    visibility: 10000,
+    pop: 0.02,
+    sys: {
+      pod: "d",
+    },
+    dt_txt: "2023-08-16 15:00:00",
   },
-  wind: {
-    speed: 10.42,
-    deg: 278,
-    gust: 7.72,
+  {
+    dt: 1692144003,
+    main: {
+      temp: 101.59,
+      feels_like: 103.21,
+      temp_min: 101.59,
+      temp_max: 102.38,
+      pressure: 1012,
+      sea_level: 1012,
+      grnd_level: 998,
+      humidity: 27,
+      temp_kf: -0.44,
+    },
+    weather: [
+      {
+        id: 803,
+        main: "Clouds",
+        description: "broken clouds",
+        icon: "04d",
+      },
+    ],
+    clouds: {
+      all: 75,
+    },
+    wind: {
+      speed: 10.42,
+      deg: 278,
+      gust: 7.72,
+    },
+    visibility: 10000,
+    pop: 0.02,
+    sys: {
+      pod: "d",
+    },
+    dt_txt: "2023-08-16 18:00:00",
   },
-  visibility: 10000,
-  pop: 0.02,
-  sys: {
-    pod: "d",
+  {
+    dt: 1692144001,
+    main: {
+      temp: 101.59,
+      feels_like: 103.21,
+      temp_min: 101.59,
+      temp_max: 102.38,
+      pressure: 1012,
+      sea_level: 1012,
+      grnd_level: 998,
+      humidity: 27,
+      temp_kf: -0.44,
+    },
+    weather: [
+      {
+        id: 803,
+        main: "Clouds",
+        description: "broken clouds",
+        icon: "04d",
+      },
+    ],
+    clouds: {
+      all: 75,
+    },
+    wind: {
+      speed: 10.42,
+      deg: 278,
+      gust: 7.72,
+    },
+    visibility: 10000,
+    pop: 0.02,
+    sys: {
+      pod: "d",
+    },
+    dt_txt: "2023-08-16 21:00:00",
   },
-  dt_txt: "2023-08-16 00:00:00",
-};
+  {
+    dt: 1692144002,
+    main: {
+      temp: 101.59,
+      feels_like: 103.21,
+      temp_min: 101.59,
+      temp_max: 102.38,
+      pressure: 1012,
+      sea_level: 1012,
+      grnd_level: 998,
+      humidity: 27,
+      temp_kf: -0.44,
+    },
+    weather: [
+      {
+        id: 803,
+        main: "Clouds",
+        description: "broken clouds",
+        icon: "04d",
+      },
+    ],
+    clouds: {
+      all: 75,
+    },
+    wind: {
+      speed: 10.42,
+      deg: 278,
+      gust: 7.72,
+    },
+    visibility: 10000,
+    pop: 0.02,
+    sys: {
+      pod: "d",
+    },
+    dt_txt: "2023-08-16 00:00:00",
+  },
+];
 
 // https://openweathermap.org/api/geocoding-api
 const getCoordinatesFromCityName = (city) => {
@@ -64,11 +174,12 @@ const getForecast = (lat, lon) => {
     });
 };
 
-const BG_COLORS = ["yellow", "orange", "red", "dark-red"];
+const handleClick = (e) => {
+  console.log('click', e);
+}
 
 function App() {
   const [searchInput, setSearchInput] = useState("");
-  const [cityName, setCityName] = useState("");
   const [forecasts, setForecasts] = useState([]);
 
   const handleChange = (e) => {
@@ -78,15 +189,22 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (searchInput !== "") {
-      const data = await getCoordinatesFromCityName(searchInput);
-      const forecastData = await getForecast(data.lat, data.lon);
-      console.log(forecastData);
+    // if (searchInput !== "") {
+    // const data = await getCoordinatesFromCityName(searchInput);
+    // const forecastData = await getForecast(data.lat, data.lon);
 
-      setCityName(forecastData.city.name);
-      setForecasts(forecastData.list);
-    }
+    // setForecasts(forecastData.list);
+    // }
+    setForecasts(FORECAST_DATA);
   };
+
+  const forecastsView = forecasts.map((data, index) => {
+    return (
+      <li key={data.dt} onClick={() => handleClick(data)}>
+        <Forecast data={data} />
+      </li>
+    );
+  });
 
   return (
     <div className="app">
@@ -95,12 +213,7 @@ function App() {
         handleChange={handleChange}
         handleSubmit={handleSubmit}
       />
-      <ul className="forecasts-list">
-        {/* <Forecast data={FORECAST_DATA} /> */}
-        {forecasts.length
-          ? forecasts.map((data) => <Forecast key={data.dt} data={data} />)
-          : null}
-      </ul>
+      <ul className="forecasts-list">{forecastsView}</ul>
     </div>
   );
 }

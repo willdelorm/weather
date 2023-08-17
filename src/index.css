@@ -103,18 +103,6 @@ body {
 .fa-location-dot {
   height: 2em;
 }
-/* 
-.header svg {
-  font-size: 2.5rem;
-  padding-right: 0.5rem;
-  opacity: 0.7;
-}
-
-form input {
-  font-size: 1.5rem;
-  width: 50%;
-  margin-right: 8px;
-} */
 
 .forecasts-list {
   height: 90vh;
@@ -122,45 +110,48 @@ form input {
   flex-direction: column;
 }
 
-.forecasts-list li {
+.forecast-container {
   display: flex;
   min-height: 15vh;
-  padding-top: 1.5rem;
+  padding: 1.5rem 1rem 0;
 }
 
-.forecasts-list li div {
+.forecast-container > * {
   width: 50%;
 }
 
-.primary {
-  flex: 1;
+.forecast-container > *:first-child {
+  display: flex;
+  justify-content: center;
 }
 
-.weather-report h2 {
+.forecast-container > * > svg {
+  height: 4rem;
+  margin: 0 auto;
+}
+
+.time {
   font-size: 1.25rem;
   letter-spacing: 0.5em;
-  opacity: 0.7;
   margin-bottom: 0.25rem;
+  opacity: 0.7;
+  text-transform: uppercase;
 }
 
-.weather-report .temp {
+.temp {
   font-size: 3rem;
   margin-bottom: 2rem;
 }
 
+/* 
+.focus {
+  flex: 1;
+}
 .weather-report .condition {
   font-size: 2rem;
   margin-bottom: 0.8rem;
 }
-
 .weather-report .details {
   font-size: 1.3rem;
 }
-
-ul svg {
-  font-size: 6rem;
-  margin: 0 auto;
-  width: 100%;
-  padding-top: 2rem;
-  opacity: 0.8;
-}
+*/

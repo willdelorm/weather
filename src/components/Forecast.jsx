@@ -51,7 +51,7 @@ const convertDegreeToCompassPoint = (wind_deg) => {
   return compassPoints[arrayPosition];
 };
 
-const Forecast = ({ data }) => {
+const Forecast = ({ data, isFocused }) => {
   const temperature = Math.round(data.main.temp);
   const condition = data.weather[0].main;
   const windSpeed = Math.round(data.wind.speed);
@@ -59,22 +59,28 @@ const Forecast = ({ data }) => {
   const localTime = utcToLocal(data.dt_txt);
   const timeOfDay = getPeriodOfDay(localTime);
 
+  const expandedView = (
+    <div>
+      <p className="condition">{condition}</p>
+      <p className="details">
+        {"Wind: " + windDirection + " " + windSpeed + "mph"}
+        <br />
+        {"Humidity: 18%"}
+      </p>
+    </div>
+  );
+
   return (
-    <li className={`${timeOfDay}`}>
+    <div className={`forecast-container ${timeOfDay}`}>
       <div>
         <i className="fa-solid fa-sun" />
       </div>
       <div className="weather-report">
-        <h2>{localTime + ":00"}</h2>
+        <h2 className="time">{timeOfDay}</h2>
         <p className="temp">{temperature + "°"}</p>
-        <p className="condition">{condition}</p>
-        <p className="details">
-          {"Wind: " + windDirection + " " + windSpeed + "mph"}
-          <br />
-          {"Humidity: 18%"}
-        </p>
+        {isFocused ? expandedView : null}
       </div>
-    </li>
+    </div>
   );
 };
 
