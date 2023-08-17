@@ -52,9 +52,12 @@ const convertDegreeToCompassPoint = (wind_deg) => {
 };
 
 const Forecast = ({ data, isFocused }) => {
-  const temperature = Math.round(data.main.temp);
+  const temperature = Number(data.main.temp)
+    ? Math.round(data.main.temp)
+    : data.main.temp;
+  const humidity = data.main.humidity;
   const condition = data.weather[0].main;
-  const windSpeed = Math.round(data.wind.speed);
+  const windSpeed = Number(data.wind.speed) ? Math.round(data.wind.speed) : data.wind.speed;
   const windDirection = convertDegreeToCompassPoint(data.wind.deg);
   const localTime = utcToLocal(data.dt_txt);
   const timeOfDay = getPeriodOfDay(localTime);
@@ -65,13 +68,13 @@ const Forecast = ({ data, isFocused }) => {
       <p className="details">
         {"Wind: " + windDirection + " " + windSpeed + "mph"}
         <br />
-        {"Humidity: 18%"}
+        {`Humidity: ${humidity}%`}
       </p>
     </div>
   );
 
   return (
-    <div className={`forecast-container ${timeOfDay}`}>
+    <div className={`forecast-container ${timeOfDay} ${isFocused ? 'focus' : null}`}>
       <div>
         <i className="fa-solid fa-sun" />
       </div>

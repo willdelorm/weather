@@ -4,6 +4,76 @@ import Form from "./components/Form";
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
+const INITIAL_DATA = [
+  {
+    dt: 101,
+    main: {
+      temp: "--",
+      humidity: "--",
+    },
+    weather: [
+      {
+        main: "-----",
+      },
+    ],
+    wind: {
+      speed: "--",
+      deg: "",
+    },
+    dt_txt: "2023-08-16 00:00:00",
+  },
+  {
+    dt: 102,
+    main: {
+      temp: "--",
+      humidity: "--",
+    },
+    weather: [
+      {
+        main: "-----",
+      },
+    ],
+    wind: {
+      speed: "--",
+      deg: "",
+    },
+    dt_txt: "2023-08-16 06:00:00",
+  },
+  {
+    dt: 103,
+    main: {
+      temp: "--",
+      humidity: "--",
+    },
+    weather: [
+      {
+        main: "-----",
+      },
+    ],
+    wind: {
+      speed: "--",
+      deg: "",
+    },
+    dt_txt: "2023-08-16 12:00:00",
+  },
+  {
+    dt: 104,
+    main: {
+      temp: "--",
+      humidity: "--",
+    },
+    weather: [
+      {
+        main: "-----",
+      },
+    ],
+    wind: {
+      speed: "--",
+      deg: "",
+    },
+    dt_txt: "2023-08-16 18:00:00",
+  },
+];
 const FORECAST_DATA = [
   {
     dt: 1692144000,
@@ -174,13 +244,10 @@ const getForecast = (lat, lon) => {
     });
 };
 
-const handleClick = (e) => {
-  console.log('click', e);
-}
-
 function App() {
   const [searchInput, setSearchInput] = useState("");
-  const [forecasts, setForecasts] = useState([]);
+  const [forecasts, setForecasts] = useState(INITIAL_DATA);
+  const [focus, setFocus] = useState(forecasts[0].dt);
 
   const handleChange = (e) => {
     setSearchInput(e.target.value);
@@ -189,19 +256,20 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // if (searchInput !== "") {
-    // const data = await getCoordinatesFromCityName(searchInput);
-    // const forecastData = await getForecast(data.lat, data.lon);
+    if (searchInput !== "") {
+      const data = await getCoordinatesFromCityName(searchInput);
+      const forecastData = await getForecast(data.lat, data.lon);
 
-    // setForecasts(forecastData.list);
-    // }
-    setForecasts(FORECAST_DATA);
+      setForecasts(forecastData.list);
+      setFocus(forecastData.list[0].dt);
+    }
   };
 
   const forecastsView = forecasts.map((data, index) => {
+    const focusClassName = focus === data.dt ? "focus" : "";
     return (
-      <li key={data.dt} onClick={() => handleClick(data)}>
-        <Forecast data={data} />
+      <li key={data.dt} className={focusClassName} onClick={() => setFocus(data.dt)}>
+        <Forecast data={data} isFocused={data.dt === focus} />
       </li>
     );
   });
