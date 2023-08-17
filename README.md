@@ -132,7 +132,9 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] 
+- [ ] Add weather conditions icons
+- [ ] Add animation
+- [ ] Set time zone based on search, not user locale
 
 See the [open issues](https://github.com/willdelorm/weather/issues) for a full list of proposed features (and known issues).
 
