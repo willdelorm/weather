@@ -110,14 +110,20 @@ body {
   flex-direction: column;
 }
 
+.forecasts-list li:has(div.focus) {
+  flex: 1;
+}
+
 .forecast-container {
   display: flex;
   min-height: 15vh;
+  height: 100%;
   padding: 1.5rem 1rem 0;
 }
 
 .forecast-container > * {
   width: 50%;
+  
 }
 
 .forecast-container > *:first-child {
@@ -143,15 +149,11 @@ body {
   margin-bottom: 2rem;
 }
 
-/* 
-.focus {
-  flex: 1;
-}
-.weather-report .condition {
+.condition {
   font-size: 2rem;
   margin-bottom: 0.8rem;
 }
-.weather-report .details {
+
+.details {
   font-size: 1.3rem;
 }
-*/
